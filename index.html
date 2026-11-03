@@ -91,6 +91,40 @@
     padding-top: 0.75rem;
   }
 
+  .stone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .stone-card {
+    border: 1px solid var(--line);
+    background: #faf8f4;
+    padding: 0.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .stone-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    display: block;
+    background: #eae6df;
+  }
+  .stone-name { font-weight: bold; margin-top: 0.6rem; font-size: 0.95rem; }
+  .stone-rate { color: var(--accent); font-size: 0.85rem; font-weight: bold; }
+  .stone-desc {
+    font-size: 0.8rem;
+    color: var(--stone);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+    text-align: left;
+    flex-grow: 1;
+  }
+
   .kamon {
     display: inline-block;
     border: 2px solid var(--ink);
@@ -125,8 +159,13 @@
 
   <header>
     <h1>山本家 先祖墓 構想メモ</h1>
-    <p>確定仕様まとめ &mdash; 更新日: 2026-11-03</p>
+    <p>構想まとめ &mdash; 更新日: 2026-11-03</p>
   </header>
+
+  <figure>
+    <img src="Gemini_Generated_Image_l4nd95l4nd95l4nd.jpg" alt="山本家の墓 初期イメージ（Gemini生成画像）">
+    <figcaption>初期イメージ（Gemini生成画像）&mdash; 雰囲気の参考。実際の仕様は下記「確定仕様」に従う</figcaption>
+  </figure>
 
   <section>
     <h2>確定仕様</h2>
@@ -142,9 +181,35 @@
         <td>&mdash;</td>
       </tr>
       <tr>
+        <th>霊表</th>
+        <td>設置する</td>
+        <td>歴代先祖名を刻む銘板石。先祖墓の右側方に独立して立てる想定。</td>
+      </tr>
+      <tr>
+        <th>物置台</th>
+        <td>設置する</td>
+        <td>供物・清掃用具等を置く台石。先祖墓の左側方に設置する想定。</td>
+      </tr>
+      <tr>
+        <th>区画</th>
+        <td>横長長方形の2区画</td>
+        <td>&mdash;</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>未確定（検討中の想定）</h2>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th style="background:#efece5; width:auto;">現在の想定</th>
+        <th style="background:#efece5; width:auto;">備考</th>
+      </tr>
+      <tr>
         <th>墓石</th>
         <td>モダンなデザインで地震に強い墓石</td>
-        <td>免震構造（免震ボンド・免震ゲル等）を採用する想定。正面に「山本家」彫刻、納骨口付き。</td>
+        <td>正面に「山本家」彫刻、納骨口付き。</td>
       </tr>
       <tr>
         <th>塔婆立</th>
@@ -152,57 +217,89 @@
         <td>&mdash;</td>
       </tr>
       <tr>
-        <th>霊表</th>
-        <td>設置する</td>
-        <td>歴代先祖名を刻む銘板石。先祖墓の側方に独立して立てる想定。</td>
-      </tr>
-      <tr>
-        <th>物置台</th>
-        <td>設置する</td>
-        <td>供物・清掃用具等を置く台石。</td>
-      </tr>
-      <tr>
         <th>家紋</th>
         <td><span class="kamon"><span></span><span></span><span></span></span>「〇に横三」を彫刻</td>
         <td>先祖墓正面下部。</td>
       </tr>
       <tr>
-        <th>区画</th>
-        <td>横長長方形の2区画</td>
-        <td>&mdash;</td>
+        <th>水子地蔵</th>
+        <td>既存の小さな水子地蔵を移設予定</td>
+        <td>よだれ掛けなし・供花を添える。</td>
       </tr>
       <tr>
-        <th>水子地蔵</th>
-        <td>小さな水子地蔵を設置</td>
-        <td>よだれ掛け・供花を添える想定。</td>
+        <th>彫刻文字</th>
+        <td>未定</td>
+        <td>家名・歴代名・納骨者名を確定する必要あり。</td>
       </tr>
     </table>
     <p class="note">※ その他の想定要素（未確定）：香炉・花立・水盤などの付帯設備、御影石タイル張りの基壇、周囲は砂利敷き。いずれもイメージ画像に基づく想定。</p>
   </section>
 
-  <figure>
-    <img src="Gemini_Generated_Image_l4nd95l4nd95l4nd.jpg" alt="山本家の墓 初期イメージ（Gemini生成画像）">
-    <figcaption>初期イメージ（Gemini生成画像）&mdash; 雰囲気の参考。実際の仕様は上記「確定仕様」に従う</figcaption>
-  </figure>
-
   <section>
     <h2>レイアウト案（横長2区画）</h2>
     <p>横長長方形2区画の敷地に、中央の先祖墓（モダンなデザインで地震に強い墓石）を軸として構成。</p>
     <div class="layout-grid">
-      <div><span class="label">左</span>水子地蔵（小）<br>物置台<br>花立</div>
+      <div><span class="label">左</span>水子地蔵（小・既存を移設）<br>物置台<br>花立</div>
       <div><span class="label">中央</span>先祖墓「山本家」<br>モダンなデザインで<br>地震に強い墓石<br>家紋「〇に横三」<br>背面：石製塔婆立<br>香炉・花立</div>
       <div><span class="label">右</span>霊表<br>（歴代名の銘板）</div>
     </div>
-    <p class="note">※ 左右の配置は未定。霊表・物置台・水子地蔵の位置は石材店と要相談。</p>
+    <p class="note">※ 霊表（右）・物置台（左）を基本とし、詳細な寸法や水子地蔵の配置バランスは石材店と現地立ち合いにて相談。</p>
   </section>
 
   <section>
-    <h2>確定仕様と画像イメージの相違点</h2>
+    <h2>画像イメージと現在の想定の相違点</h2>
     <ul>
       <li>画像の中央墓石（丸みのあるモダン型）は、実際の「モダンなデザインで地震に強い墓石」の方向性と比較的近い</li>
       <li>画像右の「山本照之墓」に相当する位置には、個人墓ではなく<strong>霊表</strong>を置く想定</li>
-      <li>画像の地蔵は大人サイズだが、実際は<strong>小さな水子地蔵</strong></li>
+      <li>画像の地蔵は大人サイズだが、実際は<strong>既存の小さな水子地蔵を移設</strong></li>
     </ul>
+  </section>
+
+  <section>
+    <h2>墓石の形式（検討資料）</h2>
+    <p>「モダンなデザインで地震に強い墓石」の候補形式（山本家・家紋「〇に横三」刻印イメージ）。耐震性は重心の低さが大きく影響する。</p>
+    <div class="stone-grid">
+      <div class="stone-card">
+        <img src="images/grave_western.png" alt="洋型（横型）墓石イメージ">
+        <p class="stone-name">洋型（横型）</p>
+        <p class="stone-rate">耐震性 ◎</p>
+        <p class="stone-desc">平らな横長の竿石。重心が最も低く、構造的に最も安定。</p>
+      </div>
+      <div class="stone-card">
+        <img src="images/grave_semi_western.png" alt="半洋型墓石イメージ">
+        <p class="stone-name">半洋型</p>
+        <p class="stone-rate">耐震性 ○</p>
+        <p class="stone-desc">洋型よりやや起き上がった板状・緩やかな斜面。</p>
+      </div>
+      <div class="stone-card">
+        <img src="images/grave_modern_japanese.png" alt="和洋折衷型墓石イメージ">
+        <p class="stone-name">和洋折衷型</p>
+        <p class="stone-rate">耐震性 △〜○</p>
+        <p class="stone-desc">縦型だが竿石が丸み・アール状の現代的デザイン。トップの生成画像の中央墓石はこの系統。</p>
+      </div>
+      <div class="stone-card">
+        <img src="images/grave_traditional.png" alt="伝統和型墓石イメージ">
+        <p class="stone-name">伝統和型</p>
+        <p class="stone-rate">耐震性 △</p>
+        <p class="stone-desc">角柱の三段重ね（竿石・上台・下台）。高さがあるため免震施工がほぼ必須。</p>
+      </div>
+      <div class="stone-card">
+        <img src="images/grave_design.png" alt="デザイン型墓石イメージ">
+        <p class="stone-name">デザイン型</p>
+        <p class="stone-rate">耐震性 形状次第</p>
+        <p class="stone-desc">波型・多面体などオーダーメイドの自由形状。</p>
+      </div>
+    </div>
+    <table style="margin-top:1.5rem;">
+      <tr>
+        <th>耐震の仕組み</th>
+        <td style="background:#fff;">形よりも接合方法が重要。免震ボンド／免震ゲルを竿石と上台の間に挟む工法、ステンレス製の免震金具で固定する工法がある。地震保証（倒壊・破損時の補償）付きプランを出す石材店もある。</td>
+      </tr>
+      <tr>
+        <th>無難な組み合わせ</th>
+        <td style="background:#fff;">低めの洋型〜和洋折衷型＋免震施工。画像イメージのような丸みのある縦型にするなら、免震ボンドか金具での施工を石材店に確認する。</td>
+      </tr>
+    </table>
   </section>
 
   <section>
@@ -218,11 +315,7 @@
       </tr>
       <tr>
         <th>見積もり</th>
-        <td>モダンなデザインで地震に強い墓石＋霊表＋塔婆立＋物置台＋水子地蔵の一式。</td>
-      </tr>
-      <tr>
-        <th>彫刻文字</th>
-        <td>家名・歴代名・納骨者名の確定。</td>
+        <td>モダンなデザインで地震に強い墓石＋霊表＋塔婆立＋物置台の一式（水子地蔵は既存を移設）。</td>
       </tr>
       <tr>
         <th>提出資料</th>
