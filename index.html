@@ -113,6 +113,68 @@
     border: 1px solid var(--line);
     display: block;
     background: #eae6df;
+    cursor: zoom-in;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .stone-card img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Modal / Lightbox */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active {
+    display: flex;
+  }
+  .modal-wrapper {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .modal-img {
+    max-width: 85vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: #fff;
+  }
+  .modal-caption {
+    color: #f0ede6;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.2rem 0.6rem;
+  }
+  .modal-close:hover {
+    color: #ddd;
   }
   .stone-name { font-weight: bold; margin-top: 0.6rem; font-size: 0.95rem; }
   .stone-rate { color: var(--accent); font-size: 0.85rem; font-weight: bold; }
@@ -327,5 +389,71 @@
   <footer>山本家 先祖墓 構想メモ</footer>
 
 </div>
+
+<!-- 拡大表示モーダル -->
+<div class="modal-overlay" id="imageModal" aria-hidden="true" role="dialog">
+  <div class="modal-wrapper">
+    <button type="button" class="modal-close" id="modalClose" aria-label="閉じる">&times;</button>
+    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(src, alt, captionText) {
+      modalImg.src = src;
+      modalImg.alt = alt || '';
+      modalCaption.textContent = captionText || alt || '';
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // 墓石形式カードの画像クリック
+    document.querySelectorAll('.stone-card img').forEach(function(img) {
+      img.addEventListener('click', function() {
+        const card = img.closest('.stone-card');
+        const name = card ? card.querySelector('.stone-name')?.textContent : '';
+        const rate = card ? card.querySelector('.stone-rate')?.textContent : '';
+        const caption = name + (rate ? ' （' + rate + '）' : '');
+        openModal(img.src, img.alt, caption);
+      });
+    });
+
+    // トップの初期イメージ画像もクリックで拡大可能に
+    document.querySelectorAll('figure img').forEach(function(img) {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function() {
+        const figcaption = img.closest('figure')?.querySelector('figcaption')?.textContent;
+        openModal(img.src, img.alt, figcaption || img.alt);
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+</script>
 </body>
 </html>
