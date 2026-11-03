@@ -121,6 +121,22 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
+  .kamon-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    cursor: zoom-in;
+    background: #000;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    display: block;
+    object-fit: contain;
+  }
+  .kamon-thumb:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
   /* Modal / Lightbox */
   .modal-overlay {
     position: fixed;
@@ -187,27 +203,6 @@
     flex-grow: 1;
   }
 
-  .kamon {
-    display: inline-block;
-    border: 2px solid var(--ink);
-    border-radius: 50%;
-    width: 3.2rem;
-    height: 3.2rem;
-    position: relative;
-    vertical-align: middle;
-    margin-right: 0.75rem;
-  }
-  .kamon span {
-    position: absolute;
-    left: 18%;
-    right: 18%;
-    height: 2px;
-    background: var(--ink);
-  }
-  .kamon span:nth-child(1) { top: 32%; }
-  .kamon span:nth-child(2) { top: 50%; }
-  .kamon span:nth-child(3) { top: 68%; }
-
   footer {
     text-align: center;
     color: var(--stone);
@@ -267,6 +262,19 @@
         <td>横長長方形の2区画</td>
         <td>&mdash;</td>
       </tr>
+      <tr>
+        <th>家紋</th>
+        <td>
+          <div style="display:flex; align-items:center; gap:0.9rem;">
+            <img src="images/kamon.jpg" alt="家紋：丸に三引両（まるにみつびきりょう）" class="kamon-thumb" title="クリックで拡大">
+            <div>
+              <strong>丸に三引両（まるにみつびきりょう）</strong><br>
+              <small style="color:var(--stone);">通称：丸に三つ引／〇に横三（クリックで拡大）</small>
+            </div>
+          </div>
+        </td>
+        <td>先祖墓の正面下部に彫刻。添付図案を正式な版型として使用。</td>
+      </tr>
     </table>
   </section>
 
@@ -282,11 +290,6 @@
         <th>墓石</th>
         <td>モダンなデザインで地震に強い墓石</td>
         <td>正面に「山本家」彫刻、納骨口付き。</td>
-      </tr>
-      <tr>
-        <th>家紋</th>
-        <td><span class="kamon"><span></span><span></span><span></span></span>「〇に横三」を彫刻</td>
-        <td>先祖墓正面下部。</td>
       </tr>
       <tr>
         <th>彫刻文字</th>
@@ -381,7 +384,7 @@
       </tr>
       <tr>
         <th>提出資料</th>
-        <td>家紋「〇に横三」の図案資料を石材店へ提出（別途準備）。</td>
+        <td>家紋「丸に三引両」の図案画像（確定・本ページ掲載の図案を石材店へ提示）。</td>
       </tr>
     </table>
   </section>
@@ -439,6 +442,13 @@
       img.addEventListener('click', function() {
         const figcaption = img.closest('figure')?.querySelector('figcaption')?.textContent;
         openModal(img.src, img.alt, figcaption || img.alt);
+      });
+    });
+
+    // 家紋画像のクリックで拡大
+    document.querySelectorAll('.kamon-thumb').forEach(function(img) {
+      img.addEventListener('click', function() {
+        openModal(img.src, img.alt, '山本家 家紋：丸に三引両（まるにみつびきりょう）');
       });
     });
 
