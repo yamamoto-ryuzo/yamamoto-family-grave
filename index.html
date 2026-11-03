@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山本家 先祖墓 構想メモ</title>
+<style>
+  :root {
+    --ink: #2b2b2b;
+    --stone: #6e6e6e;
+    --accent: #8b0000;
+    --bg: #f5f3ef;
+    --card: #ffffff;
+    --line: #ddd6cc;
+    --fixed: #1a5c2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  header h1 { font-size: 1.8rem; letter-spacing: 0.3em; }
+  header p { color: var(--stone); margin-top: 0.5rem; font-size: 0.9rem; }
+
+  figure {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  figure img { width: 100%; display: block; }
+  figcaption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--stone);
+    padding-top: 0.75rem;
+  }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 0.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 0.6rem 0.9rem; text-align: left; vertical-align: top; }
+  th { background: #efece5; width: 9em; font-weight: normal; white-space: nowrap; }
+
+  ul { padding-left: 1.4rem; }
+  li { margin-bottom: 0.3rem; }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .layout-grid div {
+    border: 1px solid var(--line);
+    background: #faf8f4;
+    padding: 0.9rem 0.5rem;
+  }
+  .layout-grid .label { display: block; color: var(--stone); font-size: 0.75rem; margin-bottom: 0.3rem; }
+
+  .note {
+    font-size: 0.85rem;
+    color: var(--stone);
+    border-top: 1px dashed var(--line);
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+  }
+
+  .kamon {
+    display: inline-block;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    width: 3.2rem;
+    height: 3.2rem;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 0.75rem;
+  }
+  .kamon span {
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    height: 2px;
+    background: var(--ink);
+  }
+  .kamon span:nth-child(1) { top: 32%; }
+  .kamon span:nth-child(2) { top: 50%; }
+  .kamon span:nth-child(3) { top: 68%; }
+
+  footer {
+    text-align: center;
+    color: var(--stone);
+    font-size: 0.8rem;
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>山本家 先祖墓 構想メモ</h1>
+    <p>確定仕様まとめ &mdash; 更新日: 2026-11-03</p>
+  </header>
+
+  <section>
+    <h2>確定仕様</h2>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th style="background:#efece5; width:auto;">確定仕様</th>
+        <th style="background:#efece5; width:auto;">備考・想定</th>
+      </tr>
+      <tr>
+        <th>用途</th>
+        <td>山本家の先祖墓</td>
+        <td>&mdash;</td>
+      </tr>
+      <tr>
+        <th>墓石</th>
+        <td>モダンなデザインで地震に強い墓石</td>
+        <td>免震構造（免震ボンド・免震ゲル等）を採用する想定。正面に「山本家」彫刻、納骨口付き。</td>
+      </tr>
+      <tr>
+        <th>塔婆立</th>
+        <td>先祖墓の背面に設置。台座は簡易な石製、塔婆自体は木製</td>
+        <td>&mdash;</td>
+      </tr>
+      <tr>
+        <th>霊表</th>
+        <td>設置する</td>
+        <td>歴代先祖名を刻む銘板石。先祖墓の側方に独立して立てる想定。</td>
+      </tr>
+      <tr>
+        <th>物置台</th>
+        <td>設置する</td>
+        <td>供物・清掃用具等を置く台石。</td>
+      </tr>
+      <tr>
+        <th>家紋</th>
+        <td><span class="kamon"><span></span><span></span><span></span></span>「〇に横三」を彫刻</td>
+        <td>先祖墓正面下部。</td>
+      </tr>
+      <tr>
+        <th>区画</th>
+        <td>横長長方形の2区画</td>
+        <td>&mdash;</td>
+      </tr>
+      <tr>
+        <th>水子地蔵</th>
+        <td>小さな水子地蔵を設置</td>
+        <td>よだれ掛け・供花を添える想定。</td>
+      </tr>
+    </table>
+    <p class="note">※ その他の想定要素（未確定）：香炉・花立・水盤などの付帯設備、御影石タイル張りの基壇、周囲は砂利敷き。いずれもイメージ画像に基づく想定。</p>
+  </section>
+
+  <figure>
+    <img src="Gemini_Generated_Image_l4nd95l4nd95l4nd.jpg" alt="山本家の墓 初期イメージ（Gemini生成画像）">
+    <figcaption>初期イメージ（Gemini生成画像）&mdash; 雰囲気の参考。実際の仕様は上記「確定仕様」に従う</figcaption>
+  </figure>
+
+  <section>
+    <h2>レイアウト案（横長2区画）</h2>
+    <p>横長長方形2区画の敷地に、中央の先祖墓（モダンなデザインで地震に強い墓石）を軸として構成。</p>
+    <div class="layout-grid">
+      <div><span class="label">左</span>水子地蔵（小）<br>物置台<br>花立</div>
+      <div><span class="label">中央</span>先祖墓「山本家」<br>モダンなデザインで<br>地震に強い墓石<br>家紋「〇に横三」<br>背面：石製塔婆立<br>香炉・花立</div>
+      <div><span class="label">右</span>霊表<br>（歴代名の銘板）</div>
+    </div>
+    <p class="note">※ 左右の配置は未定。霊表・物置台・水子地蔵の位置は石材店と要相談。</p>
+  </section>
+
+  <section>
+    <h2>確定仕様と画像イメージの相違点</h2>
+    <ul>
+      <li>画像の中央墓石（丸みのあるモダン型）は、実際の「モダンなデザインで地震に強い墓石」の方向性と比較的近い</li>
+      <li>画像右の「山本照之墓」に相当する位置には、個人墓ではなく<strong>霊表</strong>を置く想定</li>
+      <li>画像の地蔵は大人サイズだが、実際は<strong>小さな水子地蔵</strong></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>石材店との協議事項</h2>
+    <table>
+      <tr>
+        <th>項目</th>
+        <th style="background:#efece5; width:auto;">内容</th>
+      </tr>
+      <tr>
+        <th>現地立ち合い</th>
+        <td>12/28予定。2区画の実寸法確認、霊表・物置台・水子地蔵の配置相談。</td>
+      </tr>
+      <tr>
+        <th>見積もり</th>
+        <td>モダンなデザインで地震に強い墓石＋霊表＋塔婆立＋物置台＋水子地蔵の一式。</td>
+      </tr>
+      <tr>
+        <th>彫刻文字</th>
+        <td>家名・歴代名・納骨者名の確定。</td>
+      </tr>
+      <tr>
+        <th>提出資料</th>
+        <td>家紋「〇に横三」の図案資料を石材店へ提出（別途準備）。</td>
+      </tr>
+    </table>
+  </section>
+
+  <footer>山本家 先祖墓 構想メモ</footer>
+
+</div>
+</body>
+</html>
