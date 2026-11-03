@@ -209,6 +209,42 @@
     font-size: 0.8rem;
     margin-top: 2rem;
   }
+
+  /* スマホ向けレスポンシブ */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.6rem; }
+    header h1 { font-size: 1.35rem; }
+    section { padding: 1rem 0.9rem; }
+
+    /* 表をカード型に変換 */
+    table, tbody, tr, th, td { display: block; }
+    tr.tbl-head { display: none; }
+    tr {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    th {
+      width: auto;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      white-space: normal;
+      font-weight: bold;
+    }
+    td { border: none; }
+    td + td { border-top: 1px dashed var(--line); }
+    td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.68rem;
+      color: var(--stone);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+
+    .layout-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -227,44 +263,44 @@
   <section>
     <h2>確定仕様</h2>
     <table>
-      <tr>
+      <tr class="tbl-head">
         <th>項目</th>
         <th style="background:#efece5; width:auto;">確定仕様</th>
         <th style="background:#efece5; width:auto;">備考・想定</th>
       </tr>
       <tr>
         <th>用途</th>
-        <td>山本家の先祖墓</td>
-        <td>&mdash;</td>
+        <td data-label="確定仕様">山本家の先祖墓</td>
+        <td data-label="備考・想定">&mdash;</td>
       </tr>
       <tr>
         <th>塔婆立</th>
-        <td>先祖墓の背面に設置。台座は簡易な石製、塔婆自体は木製</td>
-        <td>&mdash;</td>
+        <td data-label="確定仕様">先祖墓の背面に設置。台座は簡易な石製、塔婆自体は木製</td>
+        <td data-label="備考・想定">&mdash;</td>
       </tr>
       <tr>
         <th>水子地蔵</th>
-        <td>既存の小さな水子地蔵を移設、花立・香炉は新設</td>
-        <td>よだれ掛けなし。</td>
+        <td data-label="確定仕様">既存の小さな水子地蔵を移設、花立・香炉は新設</td>
+        <td data-label="備考・想定">よだれ掛けなし。</td>
       </tr>
       <tr>
         <th>霊表</th>
-        <td>設置する</td>
-        <td>歴代先祖名を刻む銘板石。先祖墓の右側方に独立して立てる想定。</td>
+        <td data-label="確定仕様">設置する</td>
+        <td data-label="備考・想定">歴代先祖名を刻む銘板石。先祖墓の右側方に独立して立てる想定。</td>
       </tr>
       <tr>
         <th>物置台</th>
-        <td>設置する</td>
-        <td>供物・清掃用具等を置く台石。先祖墓の左側方に設置する想定。</td>
+        <td data-label="確定仕様">設置する</td>
+        <td data-label="備考・想定">供物・清掃用具等を置く台石。先祖墓の左側方に設置する想定。</td>
       </tr>
       <tr>
         <th>区画</th>
-        <td>横長長方形の2区画</td>
-        <td>&mdash;</td>
+        <td data-label="確定仕様">横長長方形の2区画</td>
+        <td data-label="備考・想定">&mdash;</td>
       </tr>
       <tr>
         <th>家紋</th>
-        <td>
+        <td data-label="確定仕様">
           <div style="display:flex; align-items:center; gap:0.9rem;">
             <img src="images/kamon.jpg" alt="家紋：丸に三引両（まるにみつびきりょう）" class="kamon-thumb" title="クリックで拡大">
             <div>
@@ -273,7 +309,7 @@
             </div>
           </div>
         </td>
-        <td>先祖墓に彫刻。添付図案を正式な版型として使用。</td>
+        <td data-label="備考・想定">先祖墓に彫刻。添付図案を正式な版型として使用。</td>
       </tr>
     </table>
   </section>
@@ -281,20 +317,20 @@
   <section>
     <h2>未確定（検討中の想定）</h2>
     <table>
-      <tr>
+      <tr class="tbl-head">
         <th>項目</th>
         <th style="background:#efece5; width:auto;">現在の想定</th>
         <th style="background:#efece5; width:auto;">備考</th>
       </tr>
       <tr>
         <th>墓石</th>
-        <td>モダンなデザインで地震に強い墓石</td>
-        <td>正面に「山本家」彫刻、納骨口付き。<br><strong>未確定事項：</strong>彫刻文字（家名）及び家紋「丸に三引両」の彫刻位置（正面下部／中央／側面など）。</td>
+        <td data-label="現在の想定">モダンなデザインで地震に強い墓石</td>
+        <td data-label="備考">正面に「山本家」彫刻、納骨口付き。<br><strong>未確定事項：</strong>彫刻文字（家名）及び家紋「丸に三引両」の彫刻位置（正面下部／中央／側面など）。</td>
       </tr>
       <tr>
         <th>彫刻文字</th>
-        <td>未定</td>
-        <td>家名・歴代名・納骨者名を確定する必要あり。</td>
+        <td data-label="現在の想定">未定</td>
+        <td data-label="備考">家名・歴代名・納骨者名を確定する必要あり。</td>
       </tr>
     </table>
     <p class="note">※ その他の想定要素（未確定）：香炉・花立・水盤などの付帯設備、御影石タイル張りの基壇、周囲は砂利敷き。いずれもイメージ画像に基づく想定。</p>
@@ -369,21 +405,21 @@
   <section>
     <h2>石材店との協議事項</h2>
     <table>
-      <tr>
+      <tr class="tbl-head">
         <th>項目</th>
         <th style="background:#efece5; width:auto;">内容</th>
       </tr>
       <tr>
         <th>現地立ち合い</th>
-        <td>12/28予定。2区画の実寸法確認、霊表・物置台・水子地蔵の配置相談。</td>
+        <td data-label="内容">12/28予定。2区画の実寸法確認、霊表・物置台・水子地蔵の配置相談。</td>
       </tr>
       <tr>
         <th>見積もり</th>
-        <td>モダンなデザインで地震に強い墓石＋霊表＋塔婆立＋物置台＋水子地蔵用花立・香炉の一式（水子地蔵本体は既存を移設）。</td>
+        <td data-label="内容">モダンなデザインで地震に強い墓石＋霊表＋塔婆立＋物置台＋水子地蔵用花立・香炉の一式（水子地蔵本体は既存を移設）。</td>
       </tr>
       <tr>
         <th>提出資料</th>
-        <td>家紋「丸に三引両」の図案画像（確定・本ページ掲載の図案を石材店へ提示）。</td>
+        <td data-label="内容">家紋「丸に三引両」の図案画像（確定・本ページ掲載の図案を石材店へ提示）。</td>
       </tr>
     </table>
   </section>
