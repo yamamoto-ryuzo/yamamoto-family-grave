@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>石の色選び | 山本家 先祖墓 構想メモ</title>
+<style>
+  :root {
+    --ink: #2b2b2b;
+    --stone: #6e6e6e;
+    --accent: #8b0000;
+    --bg: #f5f3ef;
+    --card: #ffffff;
+    --line: #ddd6cc;
+    --fixed: #1a5c2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  header {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  header h1 { font-size: 1.8rem; letter-spacing: 0.3em; }
+  header p { color: var(--stone); margin-top: 0.5rem; font-size: 0.9rem; }
+
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .page-nav a {
+    display: inline-block;
+    padding: 0.35rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--stone);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  .page-nav a[aria-current="page"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #f5f3ef;
+  }
+  .page-nav a:hover { border-color: var(--stone); }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 0.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 0.6rem 0.9rem; text-align: left; vertical-align: top; }
+  th { background: #efece5; width: 9em; font-weight: normal; white-space: nowrap; }
+
+  ul { padding-left: 1.4rem; }
+  li { margin-bottom: 0.3rem; }
+
+  .note {
+    font-size: 0.85rem;
+    color: var(--stone);
+    border-top: 1px dashed var(--line);
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+  }
+  .shu { color: #d7003a; font-weight: bold; }
+
+  /* 色選択カード */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .color-card {
+    border: 1px solid var(--line);
+    background: #faf8f4;
+    padding: 0.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .color-card:hover { border-color: var(--stone); }
+  .swatch {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    display: block;
+    object-fit: cover;
+    background: #eae6df;
+    cursor: zoom-in;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .swatch:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* 拡大表示モーダル */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-wrapper {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .modal-img {
+    max-width: 85vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: #fff;
+  }
+  .modal-caption {
+    color: #f0ede6;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.2rem 0.6rem;
+  }
+  .modal-close:hover { color: #ddd; }
+  .color-name { font-weight: bold; margin-top: 0.6rem; font-size: 0.95rem; }
+  .color-stones { color: var(--accent); font-size: 0.8rem; font-weight: bold; }
+  .color-meta { color: var(--stone); font-size: 0.75rem; margin-top: 0.15rem; }
+  .color-desc {
+    font-size: 0.8rem;
+    color: var(--stone);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+    text-align: left;
+    flex-grow: 1;
+  }
+  footer {
+    text-align: center;
+    color: var(--stone);
+    font-size: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  /* スマホ向けレスポンシブ */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.6rem; }
+    header h1 { font-size: 1.35rem; }
+    section { padding: 1rem 0.9rem; }
+
+    table, tbody, tr, th, td { display: block; }
+    tr.tbl-head { display: none; }
+    tr {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    th {
+      width: auto;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      white-space: normal;
+      font-weight: bold;
+    }
+    td { border: none; }
+    td + td { border-top: 1px dashed var(--line); }
+    td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.68rem;
+      color: var(--stone);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+
+    .preview-wrap { flex-direction: column; align-items: center; }
+    .preview-info { max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>石の色選び</h1>
+    <p>山本家 先祖墓 構想メモ &mdash; 更新日: 2026-11-09</p>
+  </header>
+
+  <nav class="page-nav">
+    <a href="index.html">構想メモ</a>
+    <a href="color.html" aria-current="page">石の色選び</a>
+  </nav>
+
+  <section>
+    <h2>石色の候補</h2>
+    <p>墓石で一般的に使われる御影石の色系統を網羅した。色・産地によって価格と印象が大きく変わる。写真をクリックすると拡大表示される。</p>
+    <div class="color-grid" id="colorGrid"></div>
+    <p class="note">※ 写真は実際の石材サンプル（出典：いよせき株式会社 石材カタログ）。<br>※ 同じ石種でも採石ロットで色・模様が異なるため、<span class="shu">最終決定は必ず石材店で実石サンプルを確認する</span>（12/28 現地立ち合い時に相談したい）。</p>
+  </section>
+
+  <section>
+    <h2>色別の比較表</h2>
+    <table>
+      <tr class="tbl-head">
+        <th>色</th>
+        <th style="background:#efece5; width:auto;">代表的な石種</th>
+        <th style="background:#efece5; width:auto;">主な産地</th>
+        <th style="background:#efece5; width:auto;">価格帯</th>
+        <th style="background:#efece5; width:auto;">特徴・注意点</th>
+      </tr>
+      <tr>
+        <th>白系</th>
+        <td data-label="代表的な石種">稲田石、白ミカゲ、G603白系</td>
+        <td data-label="主な産地">国産（兵庫・岡山ほか）、中国</td>
+        <td data-label="価格帯">手頃〜高級</td>
+        <td data-label="特徴・注意点">明るく清潔感のある色。雨染み・苔・汚れが目立ちやすく、経年で黄味を帯びる場合あり。</td>
+      </tr>
+      <tr>
+        <th>グレー系</th>
+        <td data-label="代表的な石種">庵治石、天山御影（淡色）、G623系</td>
+        <td data-label="主な産地">国産（香川・佐賀）、中国</td>
+        <td data-label="価格帯">中〜最高級</td>
+        <td data-label="特徴・注意点">業界で「青御影」と呼ばれる最も普及した色の淡色側。庵治石は目が細かく艶が美しい最高級品。汚れが目立ちにくく無難。</td>
+      </tr>
+      <tr>
+        <th>青みグレー系</th>
+        <td data-label="代表的な石種">大島石、北大青、天山濃色系</td>
+        <td data-label="主な産地">国産（愛媛・佐賀）、中国</td>
+        <td data-label="価格帯">中〜高級</td>
+        <td data-label="特徴・注意点">青みの強いグレー（濃い青御影）。大島石は磨くほど青味が増す国産高級石。格式ある落ち着いた印象。</td>
+      </tr>
+      <tr>
+        <th>黒系</th>
+        <td data-label="代表的な石種">真壁黒、山西黒・河北黒、インパラブラック</td>
+        <td data-label="主な産地">国産（茨城）、中国、南アフリカ</td>
+        <td data-label="価格帯">高級</td>
+        <td data-label="特徴・注意点">彫刻文字が白く映えて最も読みやすい。格式ある印象。水垢・埃・色褪せ（日焼け）が目立ちやすい点に注意。</td>
+      </tr>
+      <tr>
+        <th>桜・ピンク系</th>
+        <td data-label="代表的な石種">桜御影、シーリーピンク、G663ローズ系</td>
+        <td data-label="主な産地">国産、中国、インド</td>
+        <td data-label="価格帯">手頃〜中級</td>
+        <td data-label="特徴・注意点">「桜御影」と総称される優しいピンク色。柔らかく華やかな印象で人気がある一方、好みは分かれる色。</td>
+      </tr>
+      <tr>
+        <th>赤系</th>
+        <td data-label="代表的な石種">ニューインペリアルレッド、天山紅、アフリカンレッド</td>
+        <td data-label="主な産地">インド、中国、南アフリカ</td>
+        <td data-label="価格帯">中〜高級</td>
+        <td data-label="特徴・注意点">暖かく強い存在感のある赤。地域や宗派、霊園の雰囲気との相性を確認したい色。</td>
+      </tr>
+      <tr>
+        <th>青緑系</th>
+        <td data-label="代表的な石種">エメラルドパール、ブルーパール</td>
+        <td data-label="主な産地">ノルウェー</td>
+        <td data-label="価格帯">高級</td>
+        <td data-label="特徴・注意点">光の角度で結晶がラメ状に輝く個性的な色。洋型・デザイン型と相性が良い。周囲の墓とのバランス要確認。</td>
+      </tr>
+      <tr>
+        <th>緑系</th>
+        <td data-label="代表的な石種">オリーブグリーン、ハッサングリーン、インドグリーン</td>
+        <td data-label="主な産地">インド、南アフリカほか</td>
+        <td data-label="価格帯">中級</td>
+        <td data-label="特徴・注意点">深い緑を帯びた落ち着いた色。黒系に近い重厚さで、目立ちすぎない個性派。</td>
+      </tr>
+      <tr>
+        <th>茶・ブラウン系</th>
+        <td data-label="代表的な石種">インペリアルブラウン、バルティックブラウン、カフェインペリアル</td>
+        <td data-label="主な産地">インド、フィンランド</td>
+        <td data-label="価格帯">中級</td>
+        <td data-label="特徴・注意点">温かみのあるダークブラウン。黒に近い落ち着きで彫刻も比較的見やすい。</td>
+      </tr>
+      <tr>
+        <th>黄・錆系</th>
+        <td data-label="代表的な石種">黄御影、錆御影（G682など）</td>
+        <td data-label="主な産地">中国</td>
+        <td data-label="価格帯">手頃</td>
+        <td data-label="特徴・注意点">「錆御影」と総称されるベージュ〜錆色。暖かみがあり和風にも合う。錆（鉄分）による色ムラが風合いにも気になる点にもなる。</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>色選びの補足メモ</h2>
+    <ul>
+      <li>墓石の価格は「色」よりむしろ<strong>石種・産地・加工・大きさ</strong>の影響が大きい。同じグレーでも庵治石と中国産では数倍の差がある。</li>
+      <li>黒系は彫刻の視認性が高いが、白系・グレー系は色褪せしにくい。青緑系は艶消し面とのコントラストが美しい。</li>
+      <li>家紋「丸に三引両」と「山本家」の彫刻を考えると、<span class="shu">彫刻が映える濃い色（黒・グレー濃いめ）が実用上は有利</span>。</li>
+      <li>周囲の墓の色（グレー・白系が多いか、黒が多いか）を現地で確認し、極端に浮かない範囲で選ぶのが無難。</li>
+      <li>艶あり仕上げ（本磨き）か艶消しかで同じ石でも印象が変わる。水磨きの有無も石材店に確認。</li>
+    </ul>
+    <p class="note">※ 現状は「未確定」。このページで色を比較し、12/28の石材店との打ち合わせ資料とする。色の確定は実石サンプル確認後に行う。</p>
+  </section>
+
+  <footer>山本家 先祖墓 構想メモ ｜ 石の色選び</footer>
+
+</div>
+
+<!-- 拡大表示モーダル -->
+<div class="modal-overlay" id="imageModal" aria-hidden="true" role="dialog">
+  <div class="modal-wrapper">
+    <button type="button" class="modal-close" id="modalClose" aria-label="閉じる">&times;</button>
+    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // 石色マスタ（実石サンプル写真・彫刻文字色を含む）
+    const STONES = [
+      {
+        id: 'white',
+        name: '白系',
+        stones: '稲田石・白ミカゲ・G603白系',
+        meta: '国産・中国 ｜ 価格帯：手頃〜高級',
+        desc: '明るく清潔感のある色。汚れ・苔・雨染みが目立ちやすく、経年で黄味を帯びることがある。',
+        img: 'images/stone/stone_white_g603.jpg',
+        photo: '写真：青島G603（中国）'
+      },
+      {
+        id: 'gray',
+        name: 'グレー系',
+        stones: '庵治石・天山御影・G623系',
+        meta: '国産・中国 ｜ 価格帯：中〜最高級',
+        desc: '業界で「青御影」と呼ばれる最も普及した色の淡色側。庵治石のような明るいグレーで、汚れが目立ちにくく無難。',
+        img: 'images/stone/stone_gray_aji.jpg',
+        photo: '写真：庵治石（香川）'
+      },
+      {
+        id: 'bluegray',
+        name: '青みグレー系',
+        stones: '大島石・北大青・天山濃色系',
+        meta: '国産（愛媛）・中国 ｜ 価格帯：中〜高級',
+        desc: '青みの強いグレー（濃い青御影）。大島石は国産高級石の代表で、磨くほど青味が増す。格式ある落ち着いた印象。',
+        img: 'images/stone/stone_bluegray_oshima.jpg',
+        photo: '写真：大島石（愛媛）'
+      },
+      {
+        id: 'black',
+        name: '黒系',
+        stones: '真壁黒・山西黒・インパラブラック',
+        meta: '国産・中国・南アフリカ ｜ 価格帯：高級',
+        desc: '彫刻文字が白く最も映える格式ある色。水垢・埃・色褪せ（日焼け）には注意。',
+        img: 'images/stone/stone_black_shanxi.jpg',
+        photo: '写真：山西黒（中国山西省）'
+      },
+      {
+        id: 'pink',
+        name: '桜・ピンク系',
+        stones: '桜御影・シーリーピンク・G663ローズ系',
+        meta: '国産・中国・インド ｜ 価格帯：手頃〜中級',
+        desc: '「桜御影」と総称される優しいピンク色。柔らかく華やかな印象で、洋型・デザイン型にも合う。',
+        img: 'images/stone/stone_pink_sealy.jpg',
+        photo: '写真：シーリーピンク（中国）'
+      },
+      {
+        id: 'red',
+        name: '赤系',
+        stones: 'ニューインペリアルレッド・天山紅・アフリカンレッド',
+        meta: 'インド・中国・南アフリカ ｜ 価格帯：中〜高級',
+        desc: '暖かく強い存在感のある赤。霊園全体や宗派との雰囲気の相性を確認したい。',
+        img: 'images/stone/stone_red_newimpe.jpg',
+        photo: '写真：ニューインペリアルレッド（インド）'
+      },
+      {
+        id: 'bluegreen',
+        name: '青緑系',
+        stones: 'エメラルドパール・ブルーパール',
+        meta: 'ノルウェー ｜ 価格帯：高級',
+        desc: '光の角度で結晶がラメ状に輝く個性的な色。洋型・デザイン型と相性が良い。',
+        img: 'images/stone/stone_bluepearl.jpg',
+        photo: '写真：ブルーパール（ノルウェー）'
+      },
+      {
+        id: 'green',
+        name: '緑系',
+        stones: 'オリーブグリーン・ハッサングリーン・インドグリーン',
+        meta: 'インド・南アフリカほか ｜ 価格帯：中級',
+        desc: '深い緑を帯びた落ち着いた色。黒系に近い重厚さがありつつ個性的。',
+        img: 'images/stone/stone_green_olive.jpg',
+        photo: '写真：オリーブグリーン柾目（インド）'
+      },
+      {
+        id: 'brown',
+        name: '茶・ブラウン系',
+        stones: 'インペリアルブラウン・バルティックブラウン・カフェインペリアル',
+        meta: 'インド・フィンランド ｜ 価格帯：中級',
+        desc: '温かみのあるダークブラウン。黒に近い落ち着きで彫刻も比較的見やすい。',
+        img: 'images/stone/stone_brown_imperial.jpg',
+        photo: '写真：インペリアルブラウン（インド）'
+      },
+      {
+        id: 'beige',
+        name: '黄・錆系',
+        stones: '黄御影・錆御影（G682など）',
+        meta: '中国 ｜ 価格帯：手頃',
+        desc: '「錆御影」と総称される暖かみのあるベージュ〜錆色。和風にも合う。価格を抑えたい場合の候補。',
+        img: 'images/stone/stone_yellow_g682.jpg',
+        photo: '写真：G682錆御影（中国）'
+      }
+    ];
+
+    const grid = document.getElementById('colorGrid');
+
+    // 拡大表示モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(src, alt, captionText) {
+      modalImg.src = src;
+      modalImg.alt = alt || '';
+      modalCaption.textContent = captionText || alt || '';
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // カード生成
+    STONES.forEach(function(s) {
+      const card = document.createElement('div');
+      card.className = 'color-card';
+      card.innerHTML =
+        '<img class="swatch" src="' + s.img + '" alt="' + s.photo + '" loading="lazy" title="クリックで拡大">' +
+        '<span class="color-name">' + s.name + '</span>' +
+        '<span class="color-stones">' + s.stones + '</span>' +
+        '<span class="color-meta">' + s.meta + '　' + s.photo + '</span>' +
+        '<span class="color-desc">' + s.desc + '</span>';
+      card.querySelector('.swatch').addEventListener('click', function() {
+        openModal(s.img, s.photo, s.name + '　―　' + s.photo + '（' + s.stones + '）');
+      });
+      grid.appendChild(card);
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+</script>
+</body>
+</html>

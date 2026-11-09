@@ -33,6 +33,30 @@
   header h1 { font-size: 1.8rem; letter-spacing: 0.3em; }
   header p { color: var(--stone); margin-top: 0.5rem; font-size: 0.9rem; }
 
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .page-nav a {
+    display: inline-block;
+    padding: 0.35rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--stone);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  .page-nav a[aria-current="page"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #f5f3ef;
+  }
+  .page-nav a:hover { border-color: var(--stone); }
+
   figure {
     background: var(--card);
     border: 1px solid var(--line);
@@ -259,6 +283,11 @@
     <p>構想まとめ &mdash; 更新日: 2026-11-03</p>
   </header>
 
+  <nav class="page-nav">
+    <a href="index.html" aria-current="page">構想メモ</a>
+    <a href="color.html">石の色選び</a>
+  </nav>
+
   <figure>
     <img src="Gemini_Generated_Image_l4nd95l4nd95l4nd.jpg" alt="山本家の墓 初期イメージ（半洋型・Gemini生成画像）">
     <figcaption>初期イメージ（Gemini生成画像）：<strong>半洋型（スラント・オルガン型）</strong> &mdash; 雰囲気の参考。実際の仕様は下記「確定仕様」に従う</figcaption>
@@ -330,6 +359,11 @@
         <th>墓石</th>
         <td data-label="現在の想定">モダンなデザインで地震に強い墓石</td>
         <td data-label="備考">正面に「山本家」彫刻、納骨口付き。<br><strong>未確定事項：</strong>彫刻文字（家名）及び家紋「丸に三引両」の彫刻位置（正面下部／中央／側面など）。</td>
+      </tr>
+      <tr>
+        <th>石の色</th>
+        <td data-label="現在の想定">未定</td>
+        <td data-label="備考"><a href="color.html">石の色選びページ</a>で候補を比較中。実石サンプル確認後に確定。</td>
       </tr>
       <tr>
         <th>彫刻文字</th>
